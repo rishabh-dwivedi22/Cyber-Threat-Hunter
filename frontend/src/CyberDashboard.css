@@ -1,0 +1,64 @@
+.cyberpunk-theme {
+    background-color: #0a0a0a;
+    color: #00ff41;
+    font-family: 'Courier New', Courier, monospace;
+    padding: 40px;
+    min-height: 100vh;
+}
+
+.glitch {
+  text-align: center;
+  font-size: 3rem;
+  color: #ff3131;
+  text-transform: uppercase;
+  letter-spacing: 5px;
+  text-shadow: none; 
+  margin-bottom: 30px;
+  font-weight: 900;
+  border-bottom: 2px solid #ff3131; 
+  padding-bottom: 10px;
+}
+
+.server-container {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.server-box {
+    border: 2px solid #00ff41;
+    padding: 20px;
+    width: 180px;
+    text-align: center;
+    background: rgba(0, 255, 65, 0.05);
+    transition: all 0.3s ease;
+}
+
+
+.status-1,
+.status-2 {
+    border-color: #ff003c;
+    box-shadow: 0 0 15px #ff003c;
+    animation: blink 1s infinite;
+}
+
+@keyframes blink {
+    50% {
+        opacity: 0.5;
+    }
+}
+
+.patch-btn {
+    background: #00ff41;
+    color: black;
+    border: none;
+    padding: 10px 15px;
+    margin-top: 15px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.patch-btn:hover {
+    background: #fff;
+}

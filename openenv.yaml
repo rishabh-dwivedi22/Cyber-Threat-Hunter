@@ -1,0 +1,17 @@
+name: "cyber-threat-hunter-v1"
+version: "1.0.0"
+description: "A dynamic SOC (Security Operations Center) environment where an AI agent defends servers from network attacks."
+entry_point: "cyber_env:CyberThreatEnv"
+env_specs:
+  observation_space: "Box(0, 3, (5,))" # 5 servers, each having a status from 0 to 3
+  action_space: "Discrete(5)" # Agent can choose any of the 5 servers to scan/patch
+tasks:
+  - id: "easy-single-attack"
+    difficulty: 0.2
+    grader: "graders.easy_grader"
+  - id: "medium-multi-vector"
+    difficulty: 0.5
+    grader: "graders.medium_grader"
+  - id: "hard-stealth-breach"
+    difficulty: 1.0
+    grader: "graders.hard_grader"
