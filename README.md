@@ -2,7 +2,7 @@
 title: Cyber Threat Hunter
 emoji: 🛡️
 colorFrom: blue
-colorTo: black
+colorTo: gray
 sdk: docker
 app_file: app.py
 pinned: false
