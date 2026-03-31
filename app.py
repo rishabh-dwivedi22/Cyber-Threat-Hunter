@@ -5,31 +5,23 @@ import os
 app = Flask(__name__)
 env = CyberThreatEnv()
 
-
-print("--- Current Directory Files ---")
-for root, dirs, files in os.walk(os.getcwd()):
-    for file in files:
-        print(os.path.join(root, file))
-
-
-def get_static_path():
-
-    possible_paths = [
-        os.path.join(os.getcwd(), 'frontend', 'dist'),
-        os.path.join(os.getcwd(), 'dist'),
-        os.getcwd()
-    ]
-    for p in possible_paths:
-        if os.path.exists(os.path.join(p, 'index.html')):
-            print(f"--- FOUND INDEX.HTML AT: {p} ---")
-            return p
+# --- STEP 1: Find where index.html is hiding ---
+def find_static_folder():
+    for root, dirs, files in os.walk(os.getcwd()):
+        if 'index.html' in files:
+            print(f"--- SUCCESS: Found index.html in: {root} ---")
+            return root
     return os.getcwd()
 
-app.static_folder = get_static_path()
+app.static_folder = find_static_folder()
 
 @app.route('/')
 def serve():
-    return send_from_directory(app.static_folder, 'index.html')
+    # Agar index.html mil gayi toh serve karo, warna error message dikhao
+    if os.path.exists(os.path.join(app.static_folder, 'index.html')):
+        return send_from_directory(app.static_folder, 'index.html')
+    else:
+        return "<h1>Dashboard Error: index.html not found!</h1><p>Check if your frontend is built and pushed.</p>", 404
 
 @app.route('/state', methods=['GET'])
 def get_state():
@@ -45,7 +37,6 @@ def take_step():
 
 @app.route('/<path:path>')
 def static_proxy(path):
-    
     return send_from_directory(app.static_folder, path)
 
 if __name__ == '__main__':
