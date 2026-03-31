@@ -21,7 +21,7 @@
 | **AI/ML** | OpenAI Gymnasium (Custom Environment), Reinforcement Learning |
 | **Deployment** | Docker, Hugging Face Spaces |
 
-## 🏗️ Architecture
+## Architecture
 The system follows a Client-Server architecture where the **React** frontend requests the current network state from the **Flask** backend. The backend runs a **CyberThreatEnv** (RL Environment) that calculates rewards and next states based on simulated threats.
 
 
