@@ -6,18 +6,26 @@ app = Flask(__name__)
 env = CyberThreatEnv()
 
 
-def get_index_path():
-    paths = [
+print("--- Current Directory Files ---")
+for root, dirs, files in os.walk(os.getcwd()):
+    for file in files:
+        print(os.path.join(root, file))
+
+
+def get_static_path():
+
+    possible_paths = [
         os.path.join(os.getcwd(), 'frontend', 'dist'),
         os.path.join(os.getcwd(), 'dist'),
-        os.getcwd() # Agar file bahar hi padi hai
+        os.getcwd()
     ]
-    for p in paths:
+    for p in possible_paths:
         if os.path.exists(os.path.join(p, 'index.html')):
+            print(f"--- FOUND INDEX.HTML AT: {p} ---")
             return p
     return os.getcwd()
 
-app.static_folder = get_index_path()
+app.static_folder = get_static_path()
 
 @app.route('/')
 def serve():
@@ -35,9 +43,9 @@ def take_step():
     next_state, reward, done, info = env.step(action)
     return jsonify(state=next_state.tolist(), reward=reward, done=done)
 
-
 @app.route('/<path:path>')
 def static_proxy(path):
+    
     return send_from_directory(app.static_folder, path)
 
 if __name__ == '__main__':
